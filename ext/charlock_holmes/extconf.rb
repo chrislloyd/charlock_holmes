@@ -23,9 +23,6 @@ end
 
 dir_config 'icu' #, '/app/vendor/icu4c/include', '/app/vendor/icu4c/lib'
 
-STDOUT.put ENV.inspect
-STDERR.puts ENV.inspect
-
 # detect homebrew installs
 if !have_library 'icui18n'
   puts 'installing on heroku'
@@ -34,6 +31,7 @@ if !have_library 'icui18n'
 end
 
 unless have_library 'icui18n' and have_header 'unicode/ucnv.h'
+  STDERR.p ENV
   STDERR.puts "\n\n"
   STDERR.puts "***************************************************************************************"
   STDERR.puts "*********** icu required (brew install icu4c or apt-get install libicu-dev) ***********"
