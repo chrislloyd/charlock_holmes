@@ -48,8 +48,12 @@ if !have_library 'icui18n'
 end
 
 unless have_library 'icui18n' and have_header 'unicode/ucnv.h'
+  require 'shellwords'
+  app = File.join(File.dirname(ENV['BUNDLE_GEMFILE']), 'vendor', 'icu4c')
+
   STDERR.puts "\n\n"
-  STDERR.puts `find #{File.join(File.dirname(ENV['BUNDLE_GEMFILE']), 'vendor', 'icu4c')} -d 4`
+  STDERR.puts app
+  STDERR.puts `find #{app.shellescape}`
   STDERR.puts "***************************************************************************************"
   STDERR.puts "*********** icu required (brew install icu4c or apt-get install libicu-dev) ***********"
   STDERR.puts "***************************************************************************************"
