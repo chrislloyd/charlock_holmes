@@ -21,7 +21,7 @@ end
 # ICU dependency
 #
 
-dir_config 'icu', ENV['ICU_DIR']
+dir_config 'icu', '/app/vendor/icu4c/include', '/app/vendor/icu4c/lib'
 
 # detect homebrew installs
 if !have_library 'icui18n'
