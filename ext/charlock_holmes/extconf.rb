@@ -26,8 +26,8 @@ dir_config 'icu' #, '/app/vendor/icu4c/include', '/app/vendor/icu4c/lib'
 # detect homebrew installs
 if !have_library 'icui18n'
   puts 'installing on heroku'
-  $INCFLAGS << " -I/app/vendor/icu4c/include "
-  $LDFLAGS  << " -L/app/vendor/icu4c/lib "
+  $INCFLAGS << " -I#{ENV['PWD']}/vendor/icu4c/include "
+  $LDFLAGS  << " -L#{ENV['PWD']}/vendor/icu4c/lib "
 end
 
 unless have_library 'icui18n' and have_header 'unicode/ucnv.h'
