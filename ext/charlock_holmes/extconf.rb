@@ -21,18 +21,25 @@ end
 # ICU dependency
 #
 
-dir_config 'icu' #, '/app/vendor/icu4c/include', '/app/vendor/icu4c/lib'
+dir_config 'icu'
 
 # detect homebrew installs
 if !have_library 'icui18n'
-  puts 'installing on heroku'
-  $INCFLAGS << " -I#{ENV['PWD']}/vendor/icu4c/include "
-  $LDFLAGS  << " -L#{ENV['PWD']}/vendor/icu4c/lib "
+  base = if !`which brew`.empty?
+    `brew --prefix`.strip
+  elsif File.exists?("/usr/local/Cellar/icu4c")
+    '/usr/local/Cellar'
+  end
+
+  if base and icu4c = Dir[File.join(base, 'Cellar/icu4c/*')].sort.last
+    $INCFLAGS << " -I#{icu4c}/include "
+    $LDFLAGS  << " -L#{icu4c}/lib "
+  end
 end
 
 unless have_library 'icui18n' and have_header 'unicode/ucnv.h'
-  STDERR.puts ENV.inspect
   STDERR.puts "\n\n"
+  STDERR.puts ENV.inspect
   STDERR.puts "***************************************************************************************"
   STDERR.puts "*********** icu required (brew install icu4c or apt-get install libicu-dev) ***********"
   STDERR.puts "***************************************************************************************"
