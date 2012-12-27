@@ -41,7 +41,7 @@ if !have_library 'icui18n'
     STDERR.puts Dir[File.join(icu4c, '*')]
 
     if File.exists?(icu4c)
-      $INCFLAGS << " -I#{icu4c}/include "
+      $INCFLAGS << " -I#{icu4c}/common "
       $LDFLAGS  << " -L#{icu4c}/lib "
     end
   end
