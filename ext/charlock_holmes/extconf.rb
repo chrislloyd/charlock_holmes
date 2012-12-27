@@ -36,7 +36,11 @@ if !have_library 'icui18n'
     $LDFLAGS  << " -L#{icu4c}/lib "
 
   elsif ENV['BUNDLE_GEMFILE']
-    icu4c = File.join(File.dirname(ENV['BUNDLE_GEMFILE']), 'vendor', 'icu4c')
+    app = File.dirname(ENV['BUNDLE_GEMFILE'])
+    icu4c = File.join(app, 'vendor', 'icu4c')
+
+    STDERR.puts Dir[File.join(icu4c, '*')]
+
     if File.exists?(icu4c)
       $INCFLAGS << " -I#{icu4c}/include "
       $LDFLAGS  << " -L#{icu4c}/lib "
