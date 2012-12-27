@@ -31,7 +31,7 @@ if !have_library 'icui18n'
 end
 
 unless have_library 'icui18n' and have_header 'unicode/ucnv.h'
-  STDERR.p ENV
+  STDERR.puts ENV.inspect
   STDERR.puts "\n\n"
   STDERR.puts "***************************************************************************************"
   STDERR.puts "*********** icu required (brew install icu4c or apt-get install libicu-dev) ***********"
