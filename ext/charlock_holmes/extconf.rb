@@ -23,17 +23,24 @@ end
 
 dir_config 'icu'
 
-# detect homebrew installs
 if !have_library 'icui18n'
+  # detect homebrew installs
   base = if !`which brew`.empty?
     `brew --prefix`.strip
   elsif File.exists?("/usr/local/Cellar/icu4c")
-    '/usr/local/Cellar'
+    '/usr/local'
   end
 
   if base and icu4c = Dir[File.join(base, 'Cellar/icu4c/*')].sort.last
     $INCFLAGS << " -I#{icu4c}/include "
     $LDFLAGS  << " -L#{icu4c}/lib "
+
+  elsif ENV['BUNDLE_GEMFILE']
+    icu4c = File.join(File.dirname(ENV['BUNDLE_GEMFILE']), 'vendor', 'icu4c')
+    if File.exists?(icu4c)
+      $INCFLAGS << " -I#{icu4c}/include "
+      $LDFLAGS  << " -L#{icu4c}/lib "
+    end
   end
 end
 
