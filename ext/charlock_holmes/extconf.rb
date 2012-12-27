@@ -36,8 +36,7 @@ if !have_library 'icui18n'
     $LDFLAGS  << " -L#{icu4c}/lib "
 
   elsif ENV['BUNDLE_GEMFILE']
-    app = File.dirname(ENV['BUNDLE_GEMFILE'])
-    icu4c = File.join(app, 'vendor', 'icu4c')
+    icu4c = File.join(File.dirname(ENV['BUNDLE_GEMFILE']), 'vendor', 'icu4c')
 
     STDERR.puts Dir[File.join(icu4c, '*')]
 
@@ -50,7 +49,7 @@ end
 
 unless have_library 'icui18n' and have_header 'unicode/ucnv.h'
   STDERR.puts "\n\n"
-  STDERR.puts ENV.inspect
+  STDERR.puts `find #{File.join(File.dirname(ENV['BUNDLE_GEMFILE']), 'vendor', 'icu4c')} -d 4`
   STDERR.puts "***************************************************************************************"
   STDERR.puts "*********** icu required (brew install icu4c or apt-get install libicu-dev) ***********"
   STDERR.puts "***************************************************************************************"
