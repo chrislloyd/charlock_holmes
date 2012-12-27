@@ -23,6 +23,9 @@ end
 
 dir_config 'icu' #, '/app/vendor/icu4c/include', '/app/vendor/icu4c/lib'
 
+STDOUT.put ENV.inspect
+STDERR.puts ENV.inspect
+
 # detect homebrew installs
 if !have_library 'icui18n'
   puts 'installing on heroku'
